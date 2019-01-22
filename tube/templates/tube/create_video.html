@@ -1,0 +1,153 @@
+<html>
+    <head>
+{% load static %}
+   <!--Responsive Meta Tag-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PywE|Python {{object.title}}</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import jQuery Library-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!--Import materialize.js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei" rel="stylesheet">
+
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Include Editor style. -->
+<link href='https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+<link href='https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body onshow="showdiv()">
+    <div class="container">
+  <div class="col s12">
+        <ul class="tabs z-depth-3 tabs-fixed-width">
+	    <li class="tab col" title="Lessons"><a href="/lessons/"><i class="material-icons">book</i></a></li>
+            <li class="tab col" title="Add lesson"><a class="active" href="#"><i class="material-icons">add_circle</i></a></li>
+
+            <li class="tab col" title="Home"><a href="/"><i class="material-icons">home</i></a></li>
+            <li class="tab col" title="Apps"><a href="/#apps"><i class="material-icons">apps</i></a></li>
+{% if user.is_authenticated %}
+            <li class="tab col" title="logout"><a href="/accounts/logout/"><i class="material-icons">account_circle</i></a></li>
+{% else %}
+<li class="tab col" title="login"><a href="/accounts/login/"><i class="material-icons">account_circle</i></a></li>
+{% endif %}
+
+        </ul>
+{% if user.is_authenticated %}
+        <div class="card-panel orange white-text">{{warning}}</div>
+        <h2 class="card-panel blue lighten-1 white-text">Post A Video</h2>
+
+</div>
+
+
+        <div class="card-panel blue white-text z-depth-4" id="signup">
+        <form enctype="multipart/form-data" method="post" class="card-panel white blue-text" style="margin:5px;">
+            <div><img src="{% static 'accounts/images/app_icon.png' %}"/></div>
+        {% csrf_token %}
+          <div class="card-panel light-red accent-1 white-text" style="text-align:center;">
+              {{form.non_field_errors}}
+	 </div>
+
+
+
+	{% if messages %}
+        <div class="card-panel light-green accent-2 white-text" style="text-align:center;">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% else %}
+<div id="mydiv" style="display:none;">
+<div class="preloader-wrapper big active">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-red">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-yellow">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-green">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+</div>
+</div>
+        {% endif %}
+
+    {% for field in form %}
+    <div class="row">
+         <div class="input-field col s6">
+        {{ field.help_text }}
+         </div>
+
+	<div class="input-field col s12">
+          {{ field }}
+          <label for="icon_prefix">{{ field.label_tag }}</label>
+        </div>
+        {% endfor %}
+        </div>
+        <button type="submit" class="waves-effect waves btn blue" onclick="showdiv()">Post Video</button>
+        </form>
+        </div>
+    </div>
+{% else %}
+<div class="card-panel orange white-text"> Please <a href="/accounts/login">Login</a> in order to have access to lesson creation</div>
+{% endif %}
+
+    </body>
+<script type="text/javascript">
+ $('#textarea').val('New Text');
+ $('#textarea').trigger('autoresize');
+</script>
+<script>
+$(document).ready(function(){
+    $('ul.tabs').tabs();
+ });
+</script>
+
+<script>
+ function showdiv(){
+     var x = document.getElementById("mydiv");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+ }
+</script>
+
+</html>
+

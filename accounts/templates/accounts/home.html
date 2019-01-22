@@ -1,0 +1,651 @@
+<html>
+    <head>
+<title>Famehub|Welcome</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import jQuery Library-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!--Import materialize.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<!--Import materialize.css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Charmonman" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Charmonman:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Sacramento|Tangerine" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/static/images/app_icon.png">
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+   * {
+  box-sizing: border-box;
+}
+body {
+  font-size: 17px;
+  font-family: 'Merriweather', serif;
+}
+/*a{
+    color: blue;
+    text-decoration: none;
+}*/
+
+a:hover {
+    text-decoration: underline;
+}
+.img-container {
+  position: relative;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0, 0, 0);
+}
+.img-container img {vertical-align: middle;height:250px;width:100%;}
+.img-container .content {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  width: 100%;
+  height:100%;
+  padding: 10px;
+  text-align:center;
+}
+</style>
+<style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #ffd600;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+@keyframes animatebottom {
+  from{ bottom:-100px; opacity:0 }
+  to{ bottom:0; opacity:1 }
+}
+#thisDiv {
+  display: none;
+  text-align: center;
+}
+</style>
+
+<style>
+.l_c_h {
+		width:300px;
+		position:fixed;
+		bottom:0;
+		right:0px;
+		background:#fff;
+		border-radius:3px;
+		z-index:5000;
+						display:block;
+					}
+	.l_c_h .c_h {
+		cursor:pointer;
+		border-radius:0px;
+				/*background:#c61432;*/
+        background: #2dc3e8;
+				line-height: 34px;
+	}
+	.l_c_h .left_c {
+		color:#ebebeb;
+		width:150px;
+		font-size:16px;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	.l_c_h .right_c {
+		text-align:center;
+		/*background:#DE4A4A;*/
+    background:#ff8f32;
+		line-height: 36px;
+	}
+	.l_c_h .right_c  a {
+		color:#ebebeb;
+		border-radius: 3px;
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+		cursor: pointer !important;
+		font-size: 16px;
+		line-height: normal !important;
+		margin-top: 0 !important;
+		padding: 1px 0px !important;
+		text-align: center !important;
+		text-decoration:none;
+		font-weight:600;
+	}
+	.clear {
+		clear:both;
+	}
+	.chat_container {
+		  /*		display:none;*/
+		  padding:5px 26px;
+         }
+	.chat_container .no_provider {
+		text-align:left;
+		color:#5E5652;
+		font-size:12px;
+		width:300px;
+		padding:5px;
+		font-family:Arial, Helvetica, sans-serif;
+		margin-left:5px;
+	}
+	.chat_container .footer_c {
+		text-align:left;
+		color:#5E5652;
+		font-size:12px;
+		margin-left:10px;
+		margin-bottom:10px;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	.chat_container .footer_c a {
+		text-decoration:underline;
+		color:#777;
+		font-size:11px;
+	}
+	.chat_container .chat_entry {
+		margin:5px;
+		margin-top:0px;
+	}
+	.chat_container .chat_entry p {
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+	.chat_container .chat_entry h4 {
+		text-align:left;
+		color:#1A1A1A;
+		font-weight:400;
+		font-size:16px;
+		margin-top:0px;
+	}
+	.chat_container .chat_entry input[type="text"] {
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius:2px;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+		color: #999;
+		font-size: 13px;
+		padding: 8px 8px;
+		margin-bottom:5px;
+		transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		width:100%;
+ /* 	height:30px; */
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	.chat_container .chat_entry input[type="text"]:focus {
+		box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		outline:0 none;
+		border-color:#66afe9;
+	}
+	.chat_container .chat_entry input[type="submit"]{
+		padding: 5px 12px;
+		margin-bottom: 0;
+		font-size: 12px;
+		font-weight: normal;
+		text-align: center;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+		border-radius:0px;
+		color: #fff;
+		/*background-color: #DD4A4A;*/
+    background-color: #2dc3e8 !important;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	.chat_container .chat_entry input[type="submit"]:hover {
+		background-color: #C64545;
+	}
+	.form-error {
+		display:none;
+	}
+	.chat_message {
+		height:250px;
+		overflow-y:scroll;
+		padding:10px;
+		border-bottom:1px solid #222222;
+		padding-top:10px;
+	}
+	.chat_message .message_contain {
+		margin:5px;
+		background:#FCF8E2;
+		padding:5px;
+	}
+	.chat_message .user_message {
+		background:#F5F5F5;
+	}
+	.chat_message .message_contain  .header_image {
+		float:left;
+		width:50px;
+		margin-top:0px;
+		margin-bottom:0px;
+	}
+	.chat_message .message_contain .chat_mess {
+		font-size:13px;
+		color:#444444;
+		margin-top:0px;
+	}
+	.chat_message .message_contain .chat_date {
+		color:#777;
+		font-size:11px;
+		margin-top:0px;
+		margin-bottom:0px;
+	}
+	.chat_text_area {
+		margin:5px;
+	}
+	.chat_text_area .messag_send {
+		width:100%;
+		resize:none;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 2px;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+		color: #555;
+		padding:5px;
+		font-size:13px;
+		height:35px;
+	}
+	.chat_text_area .messag_send:focus {
+		box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+		outline:0 none;
+		border-color:#66afe9;
+	}
+	.left{
+		float:left;
+	}
+	.right{
+		float:right;
+	}
+	.left_icons{
+		width:35px;
+		height:auto;
+		text-align:center;
+		color:#999;
+		/*background:#DE4A4A;*/
+        background: #ff8f32;
+		font-size:15px;
+	}
+	.left_icons a{
+		color:#fff;
+		font-weight:normal;
+	}
+	.center_icons{
+		text-align:center;
+		padding:2px 0px 0px 5px;
+	}
+	.logout img{
+		margin-top:8px;
+	}
+</style>
+
+{% load auth_extras %}
+{% load static %}
+</head>
+
+<!-- Start Parallax Header -->
+<header>
+  <nav class="nav-extended green accent-4" id="top">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="/static/images/app_icon.png" width="250" height="55"></a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons blue-text">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#" title="Home"><i class="material-icons">home</i></a></li>
+        <li><a href="/tube/" title="Videos"><i class="material-icons">live_tv</i></a></li>
+        <li><a href="/#apps" title="News"><i class="material-icons">receipt</i></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/admin" title="{{user}}"><i class="material-icons">account_circle</i></a></li>
+        {% if user.is_helper %}
+        <li><a href="/accounts/user/{{user.id}}" title="Help"><i class="material-icons">accessible</i></a></li>
+        {% endif %}
+        {% else %}
+        <li><a href="{% url 'login' %}" title="Login/Signup"><i class="material-icons">account_circle</i></a></li>
+        {% endif %}
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+       <li><div class="user-view">
+      <div class="background">
+        <img src="/static/lessons/uploads/Paper_Architecture_by_Dmitri_Popov.jpg" height="200px">
+      </div>
+      {% if user.is_authenticated %}
+      {% if user.user_img %}
+      <a href="#user"><img class="circle" src="{{user.user_img.url}}"></a>
+      {% else %}
+      <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
+      {% endif %}
+      <a href="#name"><span class="white-text name">{{user}}</span></a>
+      <a href="#email"><span class="white-text email">{{user.email}}</span></a>
+      <a href="{% url 'logout' %}"><span class="white-text email">logout</span></a>
+      {% else %}
+      <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
+      <a href="#name"><span class="white-text name">Pywe Guest</span></a>
+      <a href="#email"><span class="white-text email">Guest</span></a>
+       <a href="{% url 'login' %}"><span class="white-text email">login</span></a>
+      {% endif %}
+    </div></li>
+        <li><a href="#"><i class="material-icons">home</i>Home</a></li>
+        <li><a href="/tube/"><i class="material-icons">live_tv</i>Videos</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="/#apps"><i class="material-icons">apps</i>receipt</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/admin"><i class="material-icons">account_circle</i>{{user}}</a></li>
+        {% if user.is_helper %}
+        <li><a href="/accounts/user/{{user.id}}" title="Help"><i class="material-icons">accessible</i>Help</a></li>
+        {% endif %}
+        {% else %}
+        <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Login/Signup</a></li>
+        {% endif %}
+      </ul>
+    </div>
+</nav>
+
+</header>
+
+<body>
+
+<div class="wrapper animate-bottom">
+<!-- Start Parallax  -->
+    <div class="img-container"><img src="/static/images/african.png" alt="Famehub">
+        <div class="content">
+        <h2 style="padding:10px;" class="header white-text">Fame.Hub</h2>
+        <span style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><b>Get all the fame</b></span>
+        </div>
+    </div>
+
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">FameHub</h2>
+      <p class="grey-text text-darken-3 lighten-3">Famehub. Your one stop app for all popular videos, new swags and  news on campus</p>
+    </div>
+    <div class="row container">
+      <h4 class="light">Who Uses FameHub</h4>
+      <p align="justify">
+          Anyone interested is welcome.
+       </p>
+       <h4 class="light">Become Famous</h4>
+       <p align="justify">Upload a video today and get all the fame you want</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <!-- begin app section -->
+
+  <div class="row container" id="#apps">
+      <h4 class="light">Our Apps</h4>
+    <div class="row center-align">
+    <div class="col s12 blue white-text" style="padding:10px;font-family: 'Tangerine', cursive;"><p><h3 class="header white-text"><b>Try out some of our great apps today</b></h4></p></div>
+    </div>
+
+<div class="row center-align">
+    <div class="col s12 m6 l3 amber">
+         <div class="card z-depth-5">
+            <div class="card-image">
+                <img src="/static/images/app_icon.png" height="300px" width="100px">
+                <span class="card-title black-text" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><big><b>Learnapi</b></big><br/></span>
+	        </div>
+            <div class="card-content blue white-text">
+
+                <p style="font-size:15px;height:50px;">An api that allows you to get access to all our lessons with just a single request.</p>
+            </div>
+            <div class="card-action">
+                <a href="https://documenter.getpostman.com/view/5710655/RzfmE6pN" target="_blank" class="btn blue">Doc</a>
+            </div>
+            <br/>
+
+            </div>
+    </div>
+    <div class="col s12 m6 l3 blue">
+         <div class="card z-depth-5">
+            <div class="card-image">
+                <img src="/static/images/firebase.png" height="300px" width="100px">
+                <span class="card-title black-text" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><big><b>Pywebaseapi</b></big><br/></span>
+	        </div>
+            <div class="card-content blue white-text">
+
+                <p style="font-size:15px;height:50px;">Store your files with our firebase api easily with one request.</p>
+            </div>
+            <div class="card-action">
+                <a href="/doc" target="_blank" class="btn blue">Soon</a>
+            </div>
+            <br/>
+
+            </div>
+    </div>
+    <div class="col s12 m6 l3 yellow accent-4">
+         <div class="card z-depth-5">
+            <div class="card-image">
+                <img src="/static/images/pywe_app.png" height="300px" width="100px">
+                <span class="card-title white-text" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><big><b>Android app</b></big><br/></span>
+	        </div>
+            <div class="card-content blue white-text">
+
+                <p style="font-size:15px;height:50px;">Download our android app for offline access to PywE</p>
+            </div>
+            <div class="card-action">
+                <a href="https://drive.google.com/open?id=1Yu33DBtLwWoFv8bRxbKBSv9BNCY_fnfa" target="_blank" class="btn blue">Download</a>
+            </div>
+            <br/>
+
+            </div>
+    </div>
+
+    <div class="col s12 m6 l3 blue">
+         <div class="card z-depth-5">
+            <div class="card-image">
+                <img src="/static/images/app_icon.png" height="300px" width="100px">
+                <span class="card-title black-text" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><big><b>Pyweads</b></big><br/></span>
+	        </div>
+            <div class="card-content blue white-text">
+
+                <p style="font-size:15px;height:50px;">Advertise your products on PywE now</p>
+            </div>
+            <div class="card-action">
+                <a href="/products/create_product" target="_blank" class="btn blue">Add_Product</a>
+            </div>
+            <br/>
+
+            </div>
+    </div>
+
+
+</div>
+  </div>
+<!-- End apps section -->
+  <div class="divider"></div>
+<!-- Begin team section -->
+    <div class="row container" id="#team">
+      <h4 class="light">Meet The Team</h4>
+       <div class="row center-align">
+    <div class="col s12 blue white-text" style="padding:10px;font-family: 'Tangerine', cursive;"><p><h3 class="header white-text"><b>The Great Team that put it all together</b></h4></p></div>
+    </div>
+    {% for member in staff %}
+      <div class="row center-align">
+    <div class="col s12 yellow accent-4">
+         <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+              {% if member.user_img %}
+            <div class="col s2">
+              <img src="{{member.user_img.url}}" alt="name" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            {% else %}
+            <div class="col s2">
+              <img src="/static/lessons/uploads/Paper_Architecture_by_Dmitri_Popov.jpg" alt="name" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            {% endif %}
+            <div class="col s10">
+              <span class="black-text">
+                This is {{member.username}}. One of the people that helped in making this app. {{member_occupation}}.
+              </span><br/>
+              <a href="{{member.get_absolute_url}}"><span class="blue-text name">{{member.username}}</span></a>
+              <br/>
+              <a href="#email"><span class="blue-text email">{{member.email}}</span></a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="divider"></div>
+<!-- End team section -->
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="/static/images/app_icon.png" class="responsive-img" alt="Parallax"></div>
+  </div>
+
+
+
+<footer class="page-footer grey">
+    <div class="row">
+      <div class="row center-align">
+        <h5 class="black-text" style="padding:10px;"><u>About Us</u></h5>
+        <p class="grey-text text-lighten-4" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><b>We teach Python from scratch.</b></p>
+      </div>
+      <div class="row center-align">
+        <h5 class="black-text"><u>Front-End Tutorials</u></h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">HTML5</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">CSS3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Bootstrap 3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Bootstrap 4</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Material Design</a></li>
+        </ul>
+      </div>
+      <div class="row center-align">
+        <h5 class="black-text"><u>Back-End Tutorials</u></h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">Java</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Microsoft .NET</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">PHP/MySQL</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Python</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Ruby on Rails</a></li>
+        </ul>
+      </div>
+    <div class="container">
+    <div class="row center-align">
+    <div class="col s12 m6 l3"><p><a class="btn-floating red"><i class="fa fa-google"></i></a></p></div>
+    <div class="col s12 m6 l3"><p><a href="https://www.facebook.com/pythonwithellie/" class="btn-floating blue darken-1"><i class="fa fa-facebook"></i></a></p></div>
+    <div class="col s12 m6 l3"><p><a class="btn-floating red"> <i class="fa fa-youtube"></i></a></div>
+    <div class="col s12 m6 l3"><p><a class="btn-floating blue"> <i class="fa fa-linkedin"></i></a></p></div>
+    </div>
+    </div>
+</div>
+
+  <div class="footer-copyright">
+        <div class="col l6 m6 s12" style="padding:10px;font-family: 'Tangerine', cursive;font-size:25px;">&copy; 2018 Copyright <a class="white-text text-lighten-4" href="http://learn.pythonanywhere.com/" target="_blank">PythonwithEllie</a></div>
+        <br/>
+        <br/>
+        <div class="col l6 m6 s12" style="padding:10px;font-family: 'Tangerine', cursive;font-size:20px;"><a class="grey-text text-lighten-4 right" href="https://firebase.google.com/official/site" target="_blank">Firebase Logo is a TradeMark of Google Firebase</a></div>
+        <div class="col l6 m6 s12" style="padding:10px;font-family: 'Tangerine', cursive;font-size:20px;"><a class="grey-text text-lighten-4 right" href="http://learn.pythonanywhere.com/" target="_blank">Designed By P y w E</a></div>
+  </div>
+</footer>
+
+</div>
+<!-- Start Parallax Javascript -->
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('.parallax').parallax();
+      $(".button-collapse").sideNav();
+      $('.fixed-action-btn').openFAB();
+    $('.fixed-action-btn').closeFAB();
+    $('.fixed-action-btn.toolbar').openToolbar();
+    $('.fixed-action-btn.toolbar').closeToolbar();
+  });
+</script>
+<script>
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500);
+}
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("thisDiv").style.display = "block";
+}
+</script>
+
+
+
+
+<!-- EndParallax Javascript -->
+
+<!-- End Parallax  -->
+<!--https://channels.readthedocs.io/en/stable/tutorial/part_1.html-->
+
+</body>
+</html>

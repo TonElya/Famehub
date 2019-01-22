@@ -1,0 +1,256 @@
+<html>
+<head>
+    <title>PywE | Login</title>
+    <meta name="viewport" content="width:device-width,initial-scale:1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% load static %}
+    <link rel="shortcut icon" href="{% static '/images/app_icon.png' %}">
+  <style>
+    *{
+  margin:0;
+  padding:0;
+}
+
+body{
+
+  background-color:#f0f0f0;
+  font-family:helvetica;
+}
+
+a{
+  display:block;
+  color:#ad5482;
+  text-decoration:none;
+  font-weight:bold;
+  margin-top:20px;
+  text-align:center;
+}
+
+#bg{
+  position:relative;
+  top:10px;
+  height:700px;
+  width:800px;
+  background-image:linear-gradient(to bottom left, #00ffe7, #371dca);
+  background-size:cover;
+  margin-left:auto;
+  margin-right:auto;
+  border:#00b3ff 10px solid;
+  border-radius:5px;
+}
+
+.module{
+  position:relative;
+  top:10%;
+  height:75%;
+  width:450px;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius:5px;
+  background:RGBA(255,255,255,1);
+
+  -webkit-box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+  box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+
+}
+
+.module ul{
+  list-style-type:none;
+  margin:0;
+}
+
+.tab{
+  float:center;
+  height:60px;
+  width:25%;
+  padding-top:5px;
+  box-sizing:border-box;
+  background:#eeeeee;
+  text-align:center;
+  cursor:pointer;
+  transition:background .4s;
+}
+
+.tab:first-child{
+  -webkit-border-radius: 5px 0px 0px 0px;
+  border-radius: 5px 0px 0px 0px;
+}
+
+.tab:last-child{
+  -webkit-border-radius: 0px 5px 0px 0px;
+  border-radius: 0px 5px 0px 0px;
+}
+
+.tab:hover{
+  background-color:rgba(0,0,0,.1);
+}
+
+.activeTab{
+  background:#fff;
+}
+
+.activeTab .icon{
+  opacity:1;
+}
+
+.icon{
+  float:center;
+  height:50px;
+  width:50px;
+  opacity:.2;
+}
+
+.form{
+  float:left;
+  height:90%;
+  width:100%;
+  box-sizing:border-box;
+  padding:40px;
+}
+
+.textbox{
+  height:50px;
+  width:100%;
+  border-radius:3px;
+  border:rgba(0,0,0,.3) 2px solid;
+  box-sizing:border-box;
+  padding:10px;
+  margin-bottom:30px;
+}
+
+.textbox:focus{
+  outline:none;
+   border:rgba(24,149,215,1) 2px solid;
+   color:rgba(24,149,215,1);
+}
+
+.button{
+  height:50px;
+  width:100%;
+  border-radius:3px;
+  border:rgba(0,0,0,.3) 1px solid;
+  box-sizing:border-box;
+  padding:10px;
+  margin-bottom:30px;
+  background:#00b3ff;
+  color:#FFF;
+  font-weight:bold;
+  font-size: 12pt;
+  transition:background .4s;
+  cursor:pointer;
+}
+
+.button:hover{
+  background:#fff;
+  color:#00b3ff;
+  border: solid 1px #00b3ff;
+
+}
+/* Social Section */
+#social-section {
+	padding: 30px 0;
+	background-color: #000;
+}
+#social-section .social ul li {
+	display: inline-block;
+	margin: 0 20px;
+}
+#social-section .social i.fa {
+	font-size: 24px;
+	padding: 4px 5px;
+	color: #00b3ff;
+	transition: all 0.5s;
+}
+#social-section .social i.fa:hover {
+	color: #666;
+}
+/* Footer */
+#footer {
+	background-color: #222222;
+	color: #777;
+	padding: 15px 0 10px 0;
+}
+#footer p {
+	font-size: 13px;
+	margin-top: 10px;
+}
+#footer a {
+	color: #aaa;
+}
+#footer a:hover, #footer a:focus {
+	text-decoration: none;
+	color: #7e059f;
+}
+
+@media (max-width: 768px) {
+.content {
+	padding: 40% 0 0;
+}
+}
+
+@media (max-width: 603px) {
+#menu.navbar-default {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+label {
+	float: none !important
+}
+.hover-bg .hover-text {
+	padding: 15% 10%;
+}
+  </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
+
+<script type="text/javascript" style="float:right">
+
+    $("#password").password('toggle');
+</script>
+</head>
+<body>
+<div id="bg">
+    <div style="padding:16px;"><h4><a href="/" style="color:#fff;">PywE</a></h4></div>
+  <div class="module">
+      <div>
+    <ul>
+        {% load static %}
+      <li class="tab activeTab"><img src="{% static '/images/app_icon.png' %}" alt="icon" class="icon" /></li>
+    </ul>
+</div>
+    <form class="form" action="/accounts/login/" method="Post">
+        <h3>Login</h3>
+        {% csrf_token %}
+        <br/>
+
+                    <div class="alert alert-warning" role="alert" style="color:red;">
+                        {{form.non_field_errors}}
+                    </div>
+			 {% if messages %}
+        <div class="card-panel light-green accent-2 white-text" style="text-align:center;">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    </div>{% endif %}
+
+                    <div class="alert-success" role="alert" style="color:green;">
+
+                    </div>
+
+
+      <input type="text" placeholder="Username" class="textbox" name = "username" required="required"/>
+      <input type="password" placeholder="Password" class="textbox" name = "password" required="required"/>
+      <a href="#" style="color:#00b3ff;">Forgot password?</a>
+      <br/>
+      <input type="Submit" value="Submit" class="button" />
+      <a href="/accounts/signup" style="color:#00b3ff;">Create a new Account</a>
+    </form>
+  </div>
+
+</div>
+<br/>
+<div id="footer">
+    <a href="http://learn.pythonanywhere.com" rel="nofollow" style="color:#00b3ff;">Designed by PywE</a>
+  </div>
+</body>
+</html>

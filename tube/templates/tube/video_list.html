@@ -1,0 +1,296 @@
+<html>
+<head>
+{% load static %}
+       <!--Responsive Meta Tag-->
+       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PywE|Python lessons</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import jQuery Library-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!--Import materialize.js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei|El+Messiri|Open+Sans" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="/static/images/app_icon.png">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/night-mode.css">
+<style>
+body{
+    font-family: 'Open Sans', serif;font-size: 17px;
+}
+#comment{
+    color:green;
+}
+pre{
+    font-family: 'Lekton', sans-serif;
+    padding:10px;
+background-color:black;
+color:white;
+overflow:auto;}
+a:hover{
+    color:rgb(40, 96, 131);
+}
+a:active{
+    color:#2196f3;
+}
+a:hover {
+    text-decoration: underline;
+}
+h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
+    h4,h3{
+        color:steelblue;text-align:center;font-family: 'Playfair Display SC', serif;
+    }
+</style>
+</head>
+<body>
+<nav class="nav-extended green" id="top">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="/static/images/app_icon.png" width="250" height="60"></a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons blue-text">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/" title="Home"><i class="material-icons">home</i></a></li>
+        <li><a href="/tube" title="Videos"><i class="material-icons">live_tv</i></a></li>
+        <li><a href="/#apps" title="News"><i class="material-icons">receipt</i></a></li>
+         {% if user.is_authenticated %}
+        <li><a href="/admin" title="{{user}}"><i class="material-icons">account_circle</i></a></li>
+        {% else %}
+         <li><a href="{% url 'login' %}" title="Login/Signup"><i class="material-icons">account_circle</i></a></li>
+        {% endif %}
+        <li><a href="/forum/" title="Discuss"><i class="material-icons">comment</i></a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+       <li><div class="user-view">
+      <div class="background">
+        <img src="/static/lessons/uploads/Paper_Architecture_by_Dmitri_Popov.jpg" height="200px">
+      </div>
+      {% if user.is_authenticated %}
+      {% if user.user_img %}
+      <a href="#user"><img class="circle" src="{{user.user_img.url}}"></a>
+      {% else %}
+      <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
+      {% endif %}
+      <a href="#name"><span class="white-text name">{{user}}</span></a>
+      <a href="#email"><span class="white-text email">{{user.email}}</span></a>
+      <a href="{% url 'logout' %}"><span class="white-text email">logout</span></a>
+      {% else %}
+      <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
+      <a href="#name"><span class="white-text name">Pywe Guest</span></a>
+      <a href="#email"><span class="white-text email">Guest</span></a>
+       <a href="{% url 'login' %}"><span class="white-text email">login</span></a>
+      {% endif %}
+    </div></li>
+        <li><a href="/"><i class="material-icons">home</i>Home</a></li>
+        <li><a href="/lessons"><i class="material-icons">book</i>Lesson</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="/#apps"><i class="material-icons">apps</i>Apps</a></li>
+         {% if user.is_authenticated %}
+        <li><a href="/admin"><i class="material-icons">account_circle</i>Account</a></li>
+        {% endif %}
+        <li><a href="/forum/"><i class="material-icons">comment</i>Forum</a></li>
+      </ul>
+    </div>
+</nav>
+
+
+<div class="row center-align">
+    <div class="col s12 m4 l2 grey">
+        <h4 style="color:white;"><u>videos</u></h4>
+        <ul class="collection">
+        {% for video in object_list %}
+        <a href="/tube/video/{{video.id}}" class="collection-item"><b style="font-size:18px;">{{video.title}}</b></a>
+        {% empty %}
+            <div class="card-panel orange white-text">No Video has been added yet.</div>
+        {% endfor %}
+        </ul>
+<div class="z-depth-5" style="background:linear-gradient(to bottom right,rgb(12, 75, 228),rgb(92, 255, 163));padding:5px;border-radius:15px;">
+    <p><h5 class="header white-text"><b>Want us on a project?</b></h5><br>
+    <form action="/accounts/email_us/" method="post">
+        {% csrf_token %}
+    {% if messages %}
+
+    <ul class="messages">
+        {% for message in messages %}
+        {% if message.tags == "info" %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            <div class="card-panel light-green accent-2 green-text" style="text-align:center;">{{ message }}
+             </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+
+        <ul class="messages">
+        {% for message in messages %}
+        {% if message.tags == "warning" %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            <div class="card-panel grey accent-2 red-text" style="text-align:center;">{{ message }}
+            </div>
+            </li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+
+    {% endif %}
+    <div><img src="{% static 'accounts/images/app_icon.png' %}" class="circle responsive-img" /></div>
+        <div class="input-field col s12 white-text">
+        <input type="text" placeholder="Name" name="name" required="required">
+        </div>
+        <div class="input-field col s12 white-text">
+        <input type="email" placeholder="Your Email" name="email" required="required"><br>
+        </div>
+        <div class="input-field col s12 white-text">
+        <textarea placeholder="Message" name="message" required="required"></textarea>
+        </div>
+        <br>
+        <br>
+        <button type="submit" class="waves-effect waves btn blue">Send</button>
+    </form></p>
+</div>
+<br>
+    </div>
+
+    <div class="col s12 m4 l8" style="border:solid 2px grey;">
+        <div style="padding:10px;">
+            <div class="card-panel blue white-text" style="font-family: 'Tangerine', cursive;">
+	            <h1 class="center-align" style="font-size:70px;"><b>{{ object.title }}</b></h1>
+	        </div>
+	            <div class="row center-align">
+                    <video class="responsive-video" controls>
+                        <source src="{{object.video.url}}" type="video/mp4">
+                    </video>
+                </div>
+            Number of views: {{object.views}}
+            <br>
+            {{object.vid_desc}}
+
+
+	        <div class="divider"></div>
+
+        </div>
+        <!--<div class="left-align">
+            <a href="https://www.onlinegdb.com/online_python_compiler" class="waves-effect waves-light btn">Try it yourself</a>
+        </div>-->
+        <br>
+    </div>
+    <div class="col s12 m4 l2 purple">
+        <div class="card-panel z-depth-5">
+            <div class="header purple-text" style="font-size:20px;"><u>Trick of The Day</u></div>
+            <br>
+            {{trick.description}}
+            <br>
+            {% autoescape off %}
+            <p>{{ trick.code }}</p>
+            {% endautoescape %}
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer grey">
+    <div class="row">
+      <div class="col l6 m6 s12">
+        <h5 class="black-text" style="padding:10px;"><u>About Us</u></h5>
+        <p class="grey-text text-lighten-4" style="padding:10px;font-family: 'Tangerine', cursive;font-size:30px;"><b>We teach Python from scratch.</b></p>
+      </div>
+      <div class="col l3 m3 s12" style="padding:10px;">
+        <h5 class="black-text"><u>Front-End Tutorials</u></h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">HTML5</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">CSS3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Bootstrap 3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Bootstrap 4</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Material Design</a></li>
+        </ul>
+      </div>
+      <div class="col l3 m3 s12" style="padding:10px;">
+        <h5 class="black-text"><u>Back-End Tutorials</u></h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">Java</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Microsoft .NET</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">PHP/MySQL</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Python</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Ruby on Rails</a></li>
+        </ul>
+      </div>
+    </div>
+<div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large blue">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red" href="#"><i class="material-icons">arrow_upward</i></a></li>
+      <li><a class="btn-floating red"><i class="fa fa-google"></i></a></li>
+      <li><a class="btn-floating blue darken-1"><i class="fa fa-facebook"></i></a></li>
+      <li><a class="btn-floating red"> <i class="fa fa-youtube"></i></a></li>
+    </ul>
+</div>
+  <div class="footer-copyright">
+        <div class="col l6 m6 s12" style="padding:10px;font-family: 'Tangerine', cursive;font-size:25px;">&copy; 2018 Copyright <a class="white-text text-lighten-4" href="http://learn.pythonanywhere.com/" target="_blank">PythonwithEllie</a></div>
+        <br/>
+        <div class="col l6 m6 s12" style="padding:10px;font-family: 'Tangerine', cursive;font-size:25px;"><a class="grey-text text-lighten-4 right" href="http://learn.pythonanywhere.com/" target="_blank">Designed By P y w E</a></div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery.night.mode.js"></script>
+ <!--Import materialize.js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script>
+    $( document ).ready(function(){
+    $("body").nightMode({
+    autoEnable: false,
+    brightnessControler: true,
+    keepNormal: "pre,code,nav,.page-footer,#scroll,.fixed-action-btn,.btn-floating",});
+     $(".button-collapse").sideNav();
+     $('.fixed-action-btn').openFAB();
+    $('.fixed-action-btn').closeFAB();
+    $('.fixed-action-btn.toolbar').openToolbar();
+    $('.fixed-action-btn.toolbar').closeToolbar();
+    });
+    $("pre").addClass("card-panel black blue-text");
+    </script>
+
+
+ <script>
+    $(function(){
+    $('#btn1').on('click', function(){
+        if($('p').hasClass('myClass flow-text')){
+        $('p').removeClass('myClass flow-text');
+        $('ul').removeClass('myClass flow-text');}
+        else{
+            $('p').addClass('myClass flow-text');
+            $('ul').addClass('myClass flow-text');
+        }
+    });
+});
+</script>
+<script>
+var myIndex = 0;
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var c = document.getElementsByClassName("counter");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    for (i = 0; i < c.length; i++){
+     c[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    c[myIndex-1].style.display = "block";
+    setTimeout(carousel, 5000); // Change image every 5 seconds
+}
+</script>
+
+</body>
+</html>
