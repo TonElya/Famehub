@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 import django
 
+
 # Create your models here.
 STATUS_CHOICES = (('d', 'Draft'),('p', 'Published'),('w', 'Withdrawn'),)
 class Video(models.Model):

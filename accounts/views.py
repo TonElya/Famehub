@@ -40,6 +40,7 @@ from django.utils import timezone
 from datetime import timedelta
 import datetime
 from django.views.generic import ListView
+from tube.models import Video
 
 
 """config = {"apiKey": "AIzaSyCvL086JynApAhRlwALt5TnRkuh6ojKIA4",  "authDomain": "pywe-92968.firebaseapp.com",
@@ -398,6 +399,7 @@ class UserListView(ListView):
         context['now'] = timezone.now()
 
         context['staff'] = CustomUser.objects.filter(is_superuser=True)
+        context['recent_vids'] = Video.objects.all()
         #context['product_list'] = Product.objects.filter(reviewed=True)
         return context
     def get_queryset(self):

@@ -40,14 +40,19 @@ class CreateVideoView(TemplateView):
             lesson.user = request.user
             lesson.vid_desc = str(desc)
             try:
-                lesson.video = request.FILES['video']
+                video = request.FILES['video']
             except Exception as e:
-                messages.success(request, "Please add a video")
+                messages.error(request, "Please add a video")
                 return redirect('create_video')
             else:
-                lesson.save()
-                messages.success(request, "You have succefully added a video. Thanks")
-                return redirect('create_video')
+                if video.size > 10*1024*1024:
+                    messages.error(request, "The video is too large.")
+                    return redirect('create_video')
+                else:
+                    lesson.video = request.FILES['video']
+                    lesson.save()
+                    messages.success(request, "You have succefully added a video. Thanks")
+                    return redirect('create_video')
         else:
             messages.success(request, "There was an error, make sure all fields are filled and image is attached.")
             return redirect('create_video')
@@ -57,7 +62,7 @@ class CreateVideoView(TemplateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
-        obj.save()
+        #obj.save()
         return obj
 
 
@@ -155,5 +160,12 @@ class VideoDetailView(DetailView):
 
     def get_queryset(self):
             return Video.objects.filter(status="p")
+
+    def get_object(self):
+        obj = super().get_object()
+        # Updates number of views
+        obj.views += 1
+        obj.save()
+        return obj
 
 

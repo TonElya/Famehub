@@ -40,6 +40,7 @@
 
         </ul>
 {% if user.is_authenticated %}
+
         <div class="card-panel orange white-text">{{warning}}</div>
         <h2 class="card-panel blue lighten-1 white-text">Post A Video</h2>
 
@@ -47,24 +48,37 @@
 
 
         <div class="card-panel blue white-text z-depth-4" id="signup">
-        <form enctype="multipart/form-data" method="post" class="card-panel white blue-text" style="margin:5px;">
+        <form enctype="multipart/form-data" method="post" class="card-panel white blue-text" style="margin:5px;" id="signup_form">
             <div><img src="{% static 'accounts/images/app_icon.png' %}"/></div>
         {% csrf_token %}
           <div class="card-panel light-red accent-1 white-text" style="text-align:center;">
               {{form.non_field_errors}}
 	 </div>
-
-
-
 	{% if messages %}
-        <div class="card-panel light-green accent-2 white-text" style="text-align:center;">
+        <div style="text-align:center;">
     <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% if message.tags == 'error' %}
+        <li class="card-panel red-text">{{ message }}</li>
+        <script>
+        $(document).ready(function(){
+    $(showError('{{message}}', 3000));
+ });
+        </script>
+        {% else %}
+        <li class="card-panel green-text">{{ message }}</li>
+                <script>
+        $(document).ready(function(){
+    $(showSuccess('{{message}}', 3000));
+ });
+        </script>
+
+        {% endif %}
         {% endfor %}
     </ul>
     </div>
     {% else %}
+
 <div id="mydiv" style="display:none;">
 <div class="preloader-wrapper big active">
   <div class="spinner-layer spinner-blue">
@@ -106,28 +120,41 @@
 </div>
 </div>
         {% endif %}
-
+<div>
     {% for field in form %}
-    <div class="row">
-         <div class="input-field col s6">
-        {{ field.help_text }}
-         </div>
-
-	<div class="input-field col s12">
+	<div class="input-field col s10">
           {{ field }}
           <label for="icon_prefix">{{ field.label_tag }}</label>
-        </div>
-        {% endfor %}
-        </div>
-        <button type="submit" class="waves-effect waves btn blue" onclick="showdiv()">Post Video</button>
+    </div>
+    <br>
+{% endfor %}
+        <br>
+        <button type="submit" class="waves-effect waves btn blue">Post Video</button>
         </form>
         </div>
     </div>
 {% else %}
+
 <div class="card-panel orange white-text"> Please <a href="/accounts/login">Login</a> in order to have access to lesson creation</div>
 {% endif %}
 
-    </body>
+<script>
+
+    $('#id_video').bind('change', function() {
+  //this.files[0].size gets the size of your file.
+  if (this.files[0].size > 10*1024*1024) {
+            alert('File size exceeds 10 MB');
+           $('#id_video').val(''); //for clearing with Jquery
+        } else {
+
+            //alert(this.files[0].size);
+        }
+});
+
+
+</script>
+
+
 <script type="text/javascript">
  $('#textarea').val('New Text');
  $('#textarea').trigger('autoresize');
@@ -138,7 +165,34 @@ $(document).ready(function(){
  });
 </script>
 
-<script>
+<script type="text/javascript">
+/*function validateForm() {
+  $('.form-field').each(function() {
+    if ( $(this).val() === '' ) {
+        alert("Fill all fields");
+      return false;
+    }
+    else {
+
+    return true;
+    }
+  });
+}*/
+$('#signup_form').submit(function(){
+    var fields = $('input');
+    for(var i=0;i<fields.length;i++){
+        if($(fields[i]).val() != ''){
+            showdiv();
+            return true;
+        }
+        else{
+            //alert("Fill all fields");
+            hidediv();
+            return false
+        }
+    }
+});
+
  function showdiv(){
      var x = document.getElementById("mydiv");
     if (x.style.display === "none") {
@@ -147,7 +201,47 @@ $(document).ready(function(){
         x.style.display = "none";
     }
  }
+
+ function hidediv(){
+     var x = document.getElementById("mydiv");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+ }
 </script>
+<script type = "text/javascript"
+         src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+      </script>
+
+      <script>
+         function showToast(message, duration) {
+            Materialize.toast(message, duration);
+         }
+
+         function showToast1(message, duration) {
+            Materialize.toast('<i>'+ message + '</i>', duration);
+         }
+
+         function showError(message, duration) {
+            Materialize.toast(message, duration, 'rounded white red-text');
+         }
+
+         function showSuccess(message, duration) {
+            Materialize.toast(message, duration, 'rounded green red-text');
+         }
+
+         function showToast3(message, duration) {
+            Materialize.toast('Hello World!', duration, '', function toastCompleted() {
+               alert('Toast dismissed!');
+            });
+         }
+      </script>
+
+</body>
+
 
 </html>
 
