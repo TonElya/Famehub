@@ -451,7 +451,9 @@ img {vertical-align: middle;}
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
-
+video {
+  pointer-events: none;
+}
 </style>
 
 {% load auth_extras %}
@@ -572,15 +574,19 @@ function carousel() {
     <div class="row center-align">
     <div class="col s12 orange white-text" style="padding:10px;font-family: 'Tangerine', cursive;"><p><h3 class="header white-text"><b>Trending Video</b></h4></p></div>
     </div>
-{% for video in recent_vids %}
 <div class="col s12 green lighten-2">
+    <a href="/tube/video/{{most_pop.id}}">
     <div class="row center-align green">
             <video class="responsive-video" controls>
-                <source src="{{video.video.url}}" type="video/mp4">
+                <source src="{{most_pop.video.url}}" type="video/mp4">
             </video>
     </div>
+    </a>
+    <span>Views:{{most_pop.views}}</span>
+    <br>
+    <span style="padding:10px;font-family: 'courier'">{{most_pop.title}}: {{most_pop.vid_desc}}</span>
 </div>
-{% endfor %}
+<br>
 <br>
 
 </div>

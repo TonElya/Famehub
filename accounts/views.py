@@ -395,11 +395,16 @@ class UserListView(ListView):
     template_name = "accounts/home.html"
 
     def get_context_data(self, **kwargs):
+        my_vids=[]
         context = super(UserListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
 
         context['staff'] = CustomUser.objects.filter(is_superuser=True)
+        all_vids = Video.objects.all().order_by('views')
+        for i in all_vids:
+            my_vids.append(i)
         context['recent_vids'] = Video.objects.all()
+        context['most_pop'] = my_vids[::-1][0]
         #context['product_list'] = Product.objects.filter(reviewed=True)
         return context
     def get_queryset(self):

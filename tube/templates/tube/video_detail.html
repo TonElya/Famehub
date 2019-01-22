@@ -48,45 +48,6 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
         color:steelblue;text-align:center;font-family: 'Playfair Display SC', serif;
     }
 </style>
-
-<style>
-* {box-sizing: border-box;}
-
-.mycontainer {
-  position: relative;
-  height:150px;
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: 120px;
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1;
-  width: 100%;
-  transition: .5s ease;
-  opacity:0;
-  color: white;
-  font-size: 20px;
-  padding: 20px;
-  text-align: center;
-}
-
-.mycontainer:hover .overlay {
-  opacity: 1;
-}
-.mycontainer:video{
-    pointer-events: none;
-    object-fit: initial;
-height: 120px;
-}
-</style>
 </head>
 <body>
 <nav class="nav-extended green" id="top">
@@ -197,73 +158,23 @@ height: 120px;
     </div>
 
     <div class="col s12 m4 l8" style="border:solid 2px grey;">
-        <h4 class="light">Recently Uploaded</h4>
-       <div class="row center-align">
-    <div class="col s12 blue white-text" style="padding:10px;font-family: 'Tangerine', cursive;"><p><h3 class="header white-text"><b>Stunning videos</b></h4></p></div>
-    </div>
-
-<div class="divider"></div>
-        <div class="row center-align">
-             {% for video in video_list %}
-    <div class="col s12 m6 l3" style="height:300px;">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-            <div class="mycontainer">
-              <img src="/static/images/music.jpg" height="150px;" class="image">
-              <div class="overlay"><i class="material-icons right">access_time</i></div>
-            </div>
-            </div>
-            <div class="card-content" style="height:150px;">
-              <span class="card-title activator grey-text text-darken-4">{{video.title}}<i class="material-icons right">more_vert</i></span>
-              <p><a href="/tube/video/{{video.id}}" target="_blank">Watch Now!</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">{{video.title}}<i class="material-icons right">close</i></span>
-              <p>{{video.vid_desc}}</p>
-            </div>
-    </div>
-    </div>
-    <!--
-    <div class="col s12 m6 l3 amber"><p>s12 m6 l3</p></div>
-    <div class="col s12 m6 l3 blue"><p>s12 m6 l3</p></div>
-    <div class="col s12 m6 l3 yellow accent-4"><p>s12 m6 l3</p></div>-->
-{% endfor %}
-</div>
-
-        <div class="row center-align">
-             {% for video in video_list %}
-    <div class="col s12 m6 l3" style="height:300px;">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-            <div class="mycontainer">
+        <div style="padding:10px;">
+            <div class="card-panel blue white-text" style="font-family: 'Tangerine', cursive;">
+	            <h1 class="center-align" style="font-size:70px;"><b>{{ object.title }}</b></h1>
+	        </div>
+	            <div class="row center-align">
                     <video class="responsive-video" controls>
-                        <source src="{{video.video.url}}" type="video/mp4">
+                        <source src="{{object.video.url}}" type="video/mp4">
                     </video>
-              <div class="overlay"><i class="material-icons right">access_time</i></div>
-            </div>
-            </div>
-            <div class="card-content" style="height:150px;">
-              <span class="card-title activator grey-text text-darken-4">{{video.title}}<i class="material-icons right">more_vert</i></span>
-              <p><a href="/tube/video/{{video.id}}" target="_blank">Watch Now!</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">{{video.title}}<i class="material-icons right">close</i></span>
-              <p>{{video.vid_desc}}</p>
-            </div>
-    </div>
-    </div>
-    <!--
-    <div class="col s12 m6 l3 amber"><p>s12 m6 l3</p></div>
-    <div class="col s12 m6 l3 blue"><p>s12 m6 l3</p></div>
-    <div class="col s12 m6 l3 yellow accent-4"><p>s12 m6 l3</p></div>-->
-{% endfor %}
-</div>
+                </div>
+            Number of views: {{object.views}}
+            <br>
+            {{object.vid_desc}}
 
 
+	        <div class="divider"></div>
 
-
-
-
+        </div>
         <!--<div class="left-align">
             <a href="https://www.onlinegdb.com/online_python_compiler" class="waves-effect waves-light btn">Try it yourself</a>
         </div>-->
