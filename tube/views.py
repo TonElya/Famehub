@@ -8,12 +8,12 @@ from django.contrib.auth import authenticate,login,logout
 from django.views.generic import View
 #from tastypie.models import ApiKey
 from django.db import models
-#from accounts.models import CustomUser
+from accounts.models import CustomUser
 from .forms import VideoCreationForm,VideoChangeForm
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from.models import Video
+from.models import Video,Comment
 from django.contrib import messages
 from django.utils import timezone
 
@@ -69,7 +69,7 @@ class CreateVideoView(TemplateView):
 class VideoListView(ListView):
     model = Video
     def get_context_data(self, **kwargs):
-        users_list = []
+        trend_list = []
         context = super(VideoListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
         #all_users = CustomUser.objects.all()
@@ -88,6 +88,10 @@ class VideoListView(ListView):
         #sms_list2 = []
         #sms_list3 = []
         video_list = Video.objects.all()
+        trend = Video.objects.all().order_by('views')
+        for i in trend:
+            trend_list.append(i)
+
         #for each in lesson_list:
         #    if len(sms_list1) <= 10:
         #        sms_list1.append(each)
@@ -96,6 +100,7 @@ class VideoListView(ListView):
         #    else:
         #        sms_list3.append(each)
         context['video_list'] = video_list
+        context['trend_list'] = trend_list[::-1]
         #context['lesson_list1'] = sms_list1
         #context['lesson_list2'] = sms_list2
         #context['lesson_list3'] = sms_list3
@@ -125,6 +130,8 @@ class VideoDetailView(DetailView):
         #people_ymk = []
         context = super(VideoDetailView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
+        context['related_list'] = Video.objects.filter(category=self.object.category).exclude(id=self.object.id)
+        context['comments'] = Comment.objects.filter(video=self.object)
         #my_list = Product.objects.filter(reviewed=True)[::-1]
         #my_list2 = Product.objects.filter(reviewed=True).order_by('date_created')[:]
         #if self.object.id < 25:
@@ -167,5 +174,69 @@ class VideoDetailView(DetailView):
         obj.views += 1
         obj.save()
         return obj
+
+def like(request,video_id):
+    user = CustomUser.objects.get(id=request.user.id)
+    video = Video.objects.get(id=video_id)
+    videos_liked = list(user.videos_liked.all())
+    videos_unliked = list(user.videos_unliked.all())
+    if video not in videos_liked and video not in videos_unliked:
+        video.likes += 1
+        video.save()
+        user.videos_liked.add(video)
+        user.save()
+        messages.error(request,"You liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+    elif video not in videos_liked and video in videos_unliked:
+        video.dislikes -= 1
+        video.likes +=1
+        video.save()
+        user.videos_liked.add(video)
+        user.videos_unliked.remove(video)
+        user.save()
+        messages.error(request,"You now liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+    else:
+        messages.error(request,"You already liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+
+def unlike(request,video_id):
+    user = CustomUser.objects.get(id=request.user.id)
+    video = Video.objects.get(id=video_id)
+    videos_liked = list(user.videos_liked.all())
+    videos_unliked = list(user.videos_unliked.all())
+    if video not in videos_liked and video not in videos_unliked:
+        video.dislikes += 1
+        video.save()
+        user.videos_unliked.add(video)
+        user.save()
+        messages.error(request,"You unliked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+    elif video in videos_liked and video not in videos_unliked:
+        video.likes -= 1
+        video.dislikes +=1
+        video.save()
+        user.videos_unliked.add(video)
+        user.videos_liked.remove(video)
+        user.save()
+        messages.error(request,"You unliked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+    else:
+        messages.error(request,"You already unliked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+
+def del_comment(request,comment_id,lesson_id):
+    comment = Comment.objects.get(id=comment_id)
+    if request.user == comment.user:
+        comment.delete()
+        messages.success(request, "Comment deleted!")
+        return redirect('/lessons/lesson/{}/'.format(lesson_id))
+    messages.error(request, "You cannot delete this comment!")
+    return redirect('/lessons/lesson/{}/'.format(lesson_id))
 
 

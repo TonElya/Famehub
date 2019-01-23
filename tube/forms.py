@@ -28,5 +28,5 @@ class VideoChangeForm(ModelForm):
     #body=forms.CharField(widget=CKEditorWidget())#(widget=FroalaEditor)
     class Meta:
         model = Video
-        fields = ('title','vid_desc','video','link','user')
+        fields = ('title','vid_desc','video','link','user','category')
 

@@ -3,24 +3,23 @@
 {% load static %}
        <!--Responsive Meta Tag-->
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PywE|Python lessons</title>
+<title>Fame.Hub</title>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!--Import jQuery Library-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <!--Import materialize.js-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
   <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <!--Import materialize.js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
      <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei|El+Messiri|Open+Sans" rel="stylesheet">
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="/static/images/app_icon.png">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/night-mode.css">
+
+
 <style>
 body{
     font-family: 'Open Sans', serif;font-size: 17px;
@@ -48,6 +47,42 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
         color:steelblue;text-align:center;font-family: 'Playfair Display SC', serif;
     }
 </style>
+<style>
+* {box-sizing: border-box;}
+
+.mycontainer {
+  position: relative;
+  height:150px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.mycontainer:hover .overlay {
+  opacity: 0.8;
+}
+.mycontainer:video{
+    pointer-events: none;
+}
+</style>
 </head>
 <body>
 <nav class="nav-extended green" id="top">
@@ -56,8 +91,8 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons blue-text">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/" title="Home"><i class="material-icons">home</i></a></li>
-        <li><a href="/tube" title="Videos"><i class="material-icons">live_tv</i></a></li>
-        <li><a href="/#apps" title="News"><i class="material-icons">receipt</i></a></li>
+        <li><a href="#" title="Tube"><i class="material-icons">video_library</i></a></li>
+        <li><a href="/" title="Other apps"><i class="material-icons">view_comfy</i></a></li>
          {% if user.is_authenticated %}
         <li><a href="/admin" title="{{user}}"><i class="material-icons">account_circle</i></a></li>
         {% else %}
@@ -65,6 +100,7 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
         {% endif %}
         <li><a href="/forum/" title="Discuss"><i class="material-icons">comment</i></a></li>
       </ul>
+      <!--Mobile View-->
       <ul class="side-nav" id="mobile-demo">
        <li><div class="user-view">
       <div class="background">
@@ -76,20 +112,20 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
       {% else %}
       <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
       {% endif %}
-      <a href="#name"><span class="white-text name">{{user}}</span></a>
-      <a href="#email"><span class="white-text email">{{user.email}}</span></a>
-      <a href="{% url 'logout' %}"><span class="white-text email">logout</span></a>
+      <a href="#name"><span class="blue-text name">{{user}}</span></a>
+      <a href="#email"><span class="blue-text email">{{user.email}}</span></a>
+      <a href="{% url 'logout' %}"><span class="blue-text email">logout</span></a>
       {% else %}
       <a href="#user"><img class="circle" src="/static/images/app_icon.png"></a>
-      <a href="#name"><span class="white-text name">Pywe Guest</span></a>
-      <a href="#email"><span class="white-text email">Guest</span></a>
-       <a href="{% url 'login' %}"><span class="white-text email">login</span></a>
+      <a href="#name"><span class="blue-text name">Guest</span></a>
+      <a href="#email"><span class="blue-text email">Guest</span></a>
+       <a href="{% url 'login' %}"><span class="blue-text email">login</span></a>
       {% endif %}
     </div></li>
         <li><a href="/"><i class="material-icons">home</i>Home</a></li>
-        <li><a href="/lessons"><i class="material-icons">book</i>Lesson</a></li>
+        <li><a href="#"><i class="material-icons">video_library</i>Videos</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="/#apps"><i class="material-icons">apps</i>Apps</a></li>
+        <li><a href="/"><i class="material-icons">view_comfy</i>Other Apps</a></li>
          {% if user.is_authenticated %}
         <li><a href="/admin"><i class="material-icons">account_circle</i>Account</a></li>
         {% endif %}
@@ -100,98 +136,294 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
 
 
 <div class="row center-align">
-    <div class="col s12 m4 l2 grey">
-        <h4 style="color:white;"><u>videos</u></h4>
+    <!-- Trending videos -->
+    <div class="col s12 m4 l4 red hide-on-med-and-down">
+        <h4 style="color:white;"><u>Related Videos</u></h4>
         <ul class="collection">
-        {% for video in object_list %}
-        <a href="/tube/video/{{video.id}}" class="collection-item"><b style="font-size:18px;">{{video.title}}</b></a>
+        {% for lesson in related_list %}
+        <a href="/tube/video/{{lesson.id}}/" class="collection-item red-text"><b style="font-size:18px;">{{lesson.title}}</b></a>
         {% empty %}
-            <div class="card-panel orange white-text">No Video has been added yet.</div>
+            <div class="card-panel orange white-text">No videos have been added yet.</div>
         {% endfor %}
         </ul>
-<div class="z-depth-5" style="background:linear-gradient(to bottom right,rgb(12, 75, 228),rgb(92, 255, 163));padding:5px;border-radius:15px;">
-    <p><h5 class="header white-text"><b>Want us on a project?</b></h5><br>
-    <form action="/accounts/email_us/" method="post">
-        {% csrf_token %}
-    {% if messages %}
+<br>
+<div>
+    <h4 style="color:white;"><u>Other Videos</u></h4>
+</div>
 
+    </div>
+
+    <div class="col s12 m4 l8" style="border:solid 0px grey;">
+       <!-- <div class="row center-align">
+             {% for video in video_list %}
+    <div class="col s12 m6 l3" style="height:320px;">
+        <br>
+        <div class="card" style="height:300px;">
+            <div class="card-image waves-effect waves-block waves-light">
+            <div class="mycontainer">
+              <img src="/static/images/music.jpg" height="150px;" class="image">
+              <div class="overlay"><i class="material-icons left">play_arrow</i><i class="material-icons right">access_time</i></div>
+            </div>
+            </div>
+            <div class="card-content" style="height:150px;">
+              <span class="card-title activator grey-text text-darken-4">{{video.title}}<i class="material-icons right">more_vert</i></span>
+              <p><a href="/tube/video/{{video.id}}" target="_blank">Watch Now!</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{video.title}}<i class="material-icons right">close</i></span>
+              <p>{{video.vid_desc}}</p>
+            </div>
+    </div>
+    <div class="divider"></div>
+    <br>
+    </div>
+    <!--This break will make elements diagonal
+    <br>
+{% endfor %}
+</div>-->
+
+<br>
+<div class="row">
+    <div class="video-container">
+        <iframe width="854" height="480" src="{{object.video.url}}" frameborder="1" allowfullscreen></iframe>
+    </div>
+</div>
+<!-- Video Info -->
+<div class="row">
+  <div class="col s3">{{object.views}} Views</div>
+  <!--
+  <div class="col s1 green lighten-1">3</div>
+  <div class="col s1 red lighten-1">4</div>
+  <div class="col s1 red lighten-1">5</div>
+  <div class="col s1 red lighten-1">6</div>
+  -->
+  <div class="col s2"><a href="/tube/video/like/{{object.id}}/"><i class="material-icons green-text center">thumb_up</i></a><small>{{object.likes}}</small></div>
+  <div class="col s2"><a href="/tube/video/unlike/{{object.id}}/"><i class="material-icons red-text center">thumb_down</i></a><small>{{object.dislikes}}</small></div>
+  <div class="col s2"><i class="material-icons blue-text center">notifications</i><small>Subscribe</small></div>
+</div>
+<div class="divider"></div>
+
+<div class="container">
+
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header">
+          <div class="col s12 m4 l12">
+          <div class="row valign-wrapper">
+            <div class="col s4">
+                <span>{{object.user}}</span>
+              <img src="/static/images/music.jpg" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s8">
+              <span class="black-text" style="font-size:15px;">
+                Published on {{object.date_created|date}} at {{object.date_created|time}}
+              </span>
+            </div>
+        </div>
+        <i class="material-icons">arrow_drop_down</i>
+      </div>
+      </div>
+      <div class="collapsible-body">
+          {{object.vid_desc}}
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
+
+
+
+<div class="divider"></div>
+
+
+<!--Comments section-->
+    <div class="row container" id="#comment">
+      <h4 class="light">Comments</h4>
+
+      <form action="#" method="post">
+        {% csrf_token %}
+
+        	{% if messages %}
+        <div style="text-align:center;">
     <ul class="messages">
         {% for message in messages %}
-        {% if message.tags == "info" %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-            <div class="card-panel light-green accent-2 green-text" style="text-align:center;">{{ message }}
-             </div>
-        </li>
+        {% if message.tags == 'error' %}
+
+        <script>
+        $(document).ready(function(){
+    $(showError('{{message}}', 3000));
+ });
+        </script>
+        {% else %}
+                <script>
+        $(document).ready(function(){
+    $(showSuccess('{{message}}', 3000));
+ });
+        </script>
+
         {% endif %}
         {% endfor %}
     </ul>
-
-
-        <ul class="messages">
-        {% for message in messages %}
-        {% if message.tags == "warning" %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-            <div class="card-panel grey accent-2 red-text" style="text-align:center;">{{ message }}
-            </div>
-            </li>
-        {% endif %}
-        {% endfor %}
-        </ul>
-
-    {% endif %}
-    <div><img src="{% static 'accounts/images/app_icon.png' %}" class="circle responsive-img" /></div>
-        <div class="input-field col s12 white-text">
-        <input type="text" placeholder="Name" name="name" required="required">
-        </div>
-        <div class="input-field col s12 white-text">
-        <input type="email" placeholder="Your Email" name="email" required="required"><br>
-        </div>
-        <div class="input-field col s12 white-text">
-        <textarea placeholder="Message" name="message" required="required"></textarea>
-        </div>
-        <br>
-        <br>
-        <button type="submit" class="waves-effect waves btn blue">Send</button>
-    </form></p>
+    </div>
+    {% else %}
+<!--
+<div id="mydiv" style="display:none;">
+<div class="preloader-wrapper big active">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-red">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-yellow">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="spinner-layer spinner-green">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
 </div>
-<br>
+</div>-->
+        {% endif %}
+
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea name="comment" class="materialize-textarea" data-length="5000" required></textarea>
+        <label for="froala-editor">Comment</label>
+      </div>
     </div>
 
-    <div class="col s12 m4 l8" style="border:solid 2px grey;">
-        <div style="padding:10px;">
-            <div class="card-panel blue white-text" style="font-family: 'Tangerine', cursive;">
-	            <h1 class="center-align" style="font-size:70px;"><b>{{ object.title }}</b></h1>
-	        </div>
-	            <div class="row center-align">
-                    <video class="responsive-video" controls>
-                        <source src="{{object.video.url}}" type="video/mp4">
-                    </video>
-                </div>
-            Number of views: {{object.views}}
-            <br>
-            {{object.vid_desc}}
+    <div class="row hide">
+      <div class="input-field col s12">
+        <input id="video" name="video" class="materialize-text" value="{{object.id}}">
+        <label for="video"></label>
+      </div>
+    </div>
+
+  <button type="submit" class="waves-effect waves btn blue right">Post</button>
+</form>
+
+    </div>
 
 
-	        <div class="divider"></div>
 
-        </div>
         <!--<div class="left-align">
             <a href="https://www.onlinegdb.com/online_python_compiler" class="waves-effect waves-light btn">Try it yourself</a>
-        </div>-->
+        </div>
         <br>
+        <div>You can head over to the <a class="waves-effect waves-light btn blue" href="/forum/">forum page</a> to interact with others</div>
+        <br>-->
+
+  <!-- Comments Section -->
+
+    <div class="container">
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">chat</i>Comments</div>
+      {% for comment in comments %}
+      <div class="collapsible-body"><span>{{comment.comment}}</span></div>
+      {% endfor %}
+    </li>
+  </ul>
+
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
+
+
     </div>
-    <div class="col s12 m4 l2 purple">
+    <!--
+    <div class="col s12 m4 l2 purple hide-on-med-and-down">
         <div class="card-panel z-depth-5">
-            <div class="header purple-text" style="font-size:20px;"><u>Trick of The Day</u></div>
-            <br>
-            {{trick.description}}
-            <br>
-            {% autoescape off %}
-            <p>{{ trick.code }}</p>
-            {% endautoescape %}
+            <div class="header purple-text" style="font-size:20px;"><u>Recommended</u></div>
+        </div>
+    </div>-->
+
+
+
+
+    <!-- Related Videos on Mobile -->
+    <div class="col s12 m4 l2 red hide-on-large-only">
+        <div class="card-panel z-depth-5">
+            <div class="header red-text" style="font-size:20px;"><u>Related Videos</u></div>
+
+            <div class="row center-align">
+             {% for video in related_list %}
+    <div class="col s12 m6 l3" style="height:320px;">
+        <div class="card" style="height:300px;">
+            <div class="card-image waves-effect waves-block waves-light">
+            <div class="mycontainer">
+                <div style="height:100px;">
+                    <video controls>
+                        <source src="{{video.video.url}}" type="video/mp4">
+                    </video>
+                </div>
+              <div class="overlay"><a href="/tube/video/{{video.id}}" style="color:white;"><i class="material-icons left">play_arrow</i></a><span class="new badge" data-badge-caption="Views">{{video.views}}</span></div>
+            </div>
+            </div>
+            <div class="card-content" style="height:150px;">
+              <span class="card-title activator grey-text text-darken-4 center" style="font-size:15px;">{{video.title}}<i class="material-icons right">more_vert</i></span>
+              <p><a href="/tube/video/{{video.id}}" target="_blank">Watch Now!</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4 center" style="font-size:15px;">{{video.title}}<i class="material-icons right">close</i></span>
+              <br>
+              <hr>
+              <span>
+                    <ul class="collection">
+                  <a href="#" class="collection-item blue-text"><b style="font-size:15px;">Subscribe</b></a>
+                  <a href="#" class="collection-item blue-text"><b style="font-size:15px;">Like</b></a>
+                    </ul>
+              </span>
+            </div>
+    </div>
+    <div class="divider"></div>
+    </div>
+    <!--
+    <div class="col s12 m6 l3 amber"><p>s12 m6 l3</p></div>
+    <div class="col s12 m6 l3 blue"><p>s12 m6 l3</p></div>
+    <div class="col s12 m6 l3 yellow accent-4"><p>s12 m6 l3</p></div>-->
+{% endfor %}
+</div>
+
+
         </div>
     </div>
 </div>
+
 
 <footer class="page-footer blue lighten-3">
     <div class="row">
@@ -240,18 +472,11 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
         <div class="col l6 m6 s12" style="padding:10px;font-size:12px;"><a class="grey-text text-lighten-4 right" href="http://learn.pythonanywhere.com/" target="_blank">Designed By P y w E</a></div>
   </div>
 </footer>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="/static/js/jquery.night.mode.js"></script>
- <!--Import materialize.js-->
+<!--Import materialize.js-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <script>
     $( document ).ready(function(){
-    $("body").nightMode({
-    autoEnable: false,
-    brightnessControler: true,
-    keepNormal: "pre,code,nav,.page-footer,#scroll,.fixed-action-btn,.btn-floating",});
      $(".button-collapse").sideNav();
      $('.fixed-action-btn').openFAB();
     $('.fixed-action-btn').closeFAB();
@@ -294,6 +519,25 @@ function carousel() {
     setTimeout(carousel, 5000); // Change image every 5 seconds
 }
 </script>
+ <script>
+         function showToast(message, duration) {
+            Materialize.toast(message, duration);
+         }
+         function showToast1(message, duration) {
+            Materialize.toast('<i>'+ message + '</i>', duration);
+         }
+         function showError(message, duration) {
+            Materialize.toast(message, duration, 'rounded white red-text');
+         }
+         function showSuccess(message, duration) {
+            Materialize.toast(message, duration, 'rounded white green-text');
+         }
+         function showToast3(message, duration) {
+            Materialize.toast('Hello World!', duration, '', function toastCompleted() {
+               alert('Toast dismissed!');
+            });
+         }
+      </script>
 
 </body>
 </html>

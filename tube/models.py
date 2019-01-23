@@ -17,5 +17,19 @@ class Video(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank = True, on_delete = models.SET_NULL)
     date_created = models.DateTimeField(default=django.utils.timezone.now)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d')
-    views = models.IntegerField(null=True)
+    views = models.IntegerField(null=True,default=0)
+    category = models.CharField(max_length=255, null=True,unique = False)
+    likes = models.IntegerField(null=True, default=0)
+    dislikes = models.IntegerField(null=True,default=0)
+
+
+class Comment(models.Model):
+    #first_words = models.CharField(max_length=250, null=True)
+    comment = models.TextField(null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank = True, on_delete = models.SET_NULL)
+    video = models.ForeignKey(Video, null=True, blank = True, on_delete = models.SET_NULL)
+    date_created = models.DateTimeField(default=django.utils.timezone.now)
+
+    def __str__(self):
+        return '%s' % (self.comment)
 
