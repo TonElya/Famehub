@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 #url(r'^create_all/$', views.create_lessons),
+url(r'^(?P<room_name>[^/]+)/$', views.room, name='room'),
 url(r'^video/like/(?P<video_id>[-\w]+)/$', views.like),
 url(r'^video/unlike/(?P<video_id>[-\w]+)/$', views.unlike),
     url(r'^video/(?P<pk>[-\w]+)/$', views.VideoDetailView.as_view(), name='video-detail'),

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'tube',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,17 @@ TEMPLATES = [
         },
     },
 ]
+
+ASGI_APPLICATION = 'famehub.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('famehub.pythonanywhere.com', 6379)],
+        },
+    },
+}
+
 
 WSGI_APPLICATION = 'famehub.wsgi.application'
 

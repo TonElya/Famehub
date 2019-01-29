@@ -240,3 +240,58 @@ def del_comment(request,comment_id,lesson_id):
     return redirect('/lessons/lesson/{}/'.format(lesson_id))
 
 
+def api_like(request,video_id):
+    user = CustomUser.objects.get(id=request.user.id)
+    video = Video.objects.get(id=video_id)
+    videos_liked = list(user.videos_liked.all())
+    videos_unliked = list(user.videos_unliked.all())
+    if video not in videos_liked and video not in videos_unliked:
+        video.likes += 1
+        video.save()
+        user.videos_liked.add(video)
+        user.save()
+        messages.error(request,"You liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+    elif video not in videos_liked and video in videos_unliked:
+        video.dislikes -= 1
+        video.likes +=1
+        video.save()
+        user.videos_liked.add(video)
+        user.videos_unliked.remove(video)
+        user.save()
+        messages.error(request,"You now liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+    else:
+        messages.error(request,"You already liked this video")
+        return redirect('/tube/video/{}/'.format(video_id))
+
+from rest_framework.decorators import api_view
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import JSONParser
+from django.http import JsonResponse
+
+@api_view(['POST'])
+@parser_classes((JSONParser,))
+def example_view(request, format=None):
+    """
+    A view that can accept POST requests with JSON content.
+    """
+    return JsonResponse({'received data': request.data})
+
+
+from django.utils.safestring import mark_safe
+import json
+
+
+
+
+def room(request, room_name):
+    return render(request, 'tube/video_detail.html', {
+        'room_name_json': mark_safe(json.dumps(room_name))
+    })
+
+
+
+
