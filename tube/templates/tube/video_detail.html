@@ -1,33 +1,25 @@
 <html>
 <head>
+    <title>Fame.Hub</title>
        <!--Responsive Meta Tag-->
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Fame.Hub</title>
+
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+  <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei|El+Messiri|Open+Sans" rel="stylesheet">
+  <!--Awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<!--JQuery Library-->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--Ajax library-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <!--Import materialize.js-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei|El+Messiri|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/png" href="/static/images/app_icon.png">
-    <!--Ajax library-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-    <link rel = "stylesheet"
-       href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel = "stylesheet"
-       href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-    <script type = "text/javascript"
-       src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<link rel="icon" type="image/png" href="/static/images/app_icon.png">
 
 
 <style>
@@ -91,6 +83,12 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
 }
 .mycontainer:video{
     pointer-events: none;
+}
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 80%;
+  left:0%;
 }
 </style>
 </head>
@@ -208,13 +206,16 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
   <div class="col s1 red lighten-1">6</div>
   -->
   <div class="col s2">
-      <a href="#/" class="waves-effect waves-light" onclick="return likeVid()" btn-small><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a>
+      <a href="#/" data-position="top" data-delay="50" data-tooltip="Like" class="waves-effect waves-light tooltipped" onclick="return likeVid()" btn-small><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a>
   <div id="likes" style="font-size:12px;">{{object.likes}}</div></div>
   <div class="col s2">
-      <a href="#/" class="waves-effect waves-light" onclick="return unlikeVid()"><i class="material-icons red-text center">thumb_down</i></a>
+      <a href="#/" data-position="top" data-delay="50" data-tooltip="unlike" class="waves-effect waves-light tooltipped" onclick="return unlikeVid()"><i class="material-icons red-text center">thumb_down</i></a>
       <div id="unlikes" style="font-size:12px;">{{object.dislikes}}</div>
-      </div>
-  <div class="col s2"><i class="material-icons blue-text center">notifications</i><small>Subscribe</small></div>
+    </div>
+    <div class="col s2">
+      <a href="#/" data-position="top" data-delay="50" data-tooltip="Subscribe" class="waves-effect waves-light tooltipped"><i class="material-icons blue-text center">notifications</i></a>
+      <div id="subscribers" style="font-size:12px;">51</div>
+    </div>
 </div>
 <script>
 
@@ -340,6 +341,7 @@ function showError(message, duration) {
 <script type="text/javascript">
  $(document).ready(function(){
     $('.collapsible').collapsible();
+     $('.tooltipped').tooltip({delay: 50});
   });
 </script>
 
