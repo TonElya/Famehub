@@ -240,7 +240,7 @@ def del_comment(request,comment_id,lesson_id):
     return redirect('/lessons/lesson/{}/'.format(lesson_id))
 
 
-def api_like(request,video_id):
+def api_likes(request,video_id):
     user = CustomUser.objects.get(id=request.user.id)
     video = Video.objects.get(id=video_id)
     videos_liked = list(user.videos_liked.all())
@@ -272,13 +272,114 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 
-@api_view(['POST'])
-@parser_classes((JSONParser,))
-def example_view(request, format=None):
-    """
-    A view that can accept POST requests with JSON content.
-    """
-    return JsonResponse({'received data': request.data})
+# @api_view(['GET'])
+# @parser_classes((JSONParser,))
+def api_like(request,video_id, format=None):
+    """A view that can accept GET"""
+    user = CustomUser.objects.get(id=request.user.id)
+    video = Video.objects.get(id=video_id)
+    videos_liked = list(user.videos_liked.all())
+    videos_unliked = list(user.videos_unliked.all())
+    if video not in videos_liked and video not in videos_unliked:
+        video.likes += 1
+        video.save()
+        user.videos_liked.add(video)
+        user.save()
+        #messages.error(request,"You liked this video")
+        responseData = {
+        'id': video_id,
+        'message': 'You like this video',
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'success':True}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+        #return redirect('/tube/video/{}/'.format(video_id))
+
+    elif video not in videos_liked and video in videos_unliked:
+        video.dislikes -= 1
+        video.likes +=1
+        video.save()
+        user.videos_liked.add(video)
+        user.videos_unliked.remove(video)
+        user.save()
+        #messages.error(request,"You now liked this video")
+        responseData = {
+        'id': video_id,
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'message': 'You now like this video',
+        'success':True}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+        #return redirect('/tube/video/{}/'.format(video_id))
+
+    else:
+        #messages.error(request,"You already liked this video")
+        responseData = {
+        'id': video_id,
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'message': 'You already liked this video',
+        'success':False}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+
+
+
+
+def api_unlike(request,video_id):
+    user = CustomUser.objects.get(id=request.user.id)
+    video = Video.objects.get(id=video_id)
+    videos_liked = list(user.videos_liked.all())
+    videos_unliked = list(user.videos_unliked.all())
+    if video not in videos_liked and video not in videos_unliked:
+        video.dislikes += 1
+        video.save()
+        user.videos_unliked.add(video)
+        user.save()
+        #messages.error(request,"You unliked this video")
+        responseData = {
+        'id': video_id,
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'message': 'You unlike this video',
+        'success':True}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+        #return redirect('/tube/video/{}/'.format(video_id))
+
+    elif video in videos_liked and video not in videos_unliked:
+        video.likes -= 1
+        video.dislikes +=1
+        video.save()
+        user.videos_unliked.add(video)
+        user.videos_liked.remove(video)
+        user.save()
+        #messages.error(request,"You unliked this video")
+        responseData = {
+        'id': video_id,
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'message': 'You unlike this video',
+        'success':True}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+        #return redirect('/tube/video/{}/'.format(video_id))
+    else:
+        #messages.error(request,"You already unliked this video")
+        responseData = {
+        'id': video_id,
+        'likes':video.likes,
+        'unlikes':video.dislikes,
+        'message': 'You already unliked this video',
+        'success':False}
+        #'roles' : ['Admin','User']}
+        return JsonResponse(responseData)
+        #return redirect('/tube/video/{}/'.format(video_id))
+
+
+    #return JsonResponse({'received data': 'Hello'})
 
 
 from django.utils.safestring import mark_safe

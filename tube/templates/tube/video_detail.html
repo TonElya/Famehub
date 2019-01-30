@@ -1,6 +1,5 @@
 <html>
 <head>
-{% load static %}
        <!--Responsive Meta Tag-->
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Fame.Hub</title>
@@ -18,6 +17,17 @@
     <link href="https://fonts.googleapis.com/css?family=Lekton|Montserrat:400,500|Philosopher|Playfair+Display+SC:400,700|Rokkitt|Tangerine|ZCOOL+XiaoWei|El+Messiri|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="/static/images/app_icon.png">
+    <!--Ajax library-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel = "stylesheet"
+       href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet"
+       href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+       src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
 
 
 <style>
@@ -197,10 +207,101 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
   <div class="col s1 red lighten-1">5</div>
   <div class="col s1 red lighten-1">6</div>
   -->
-  <div class="col s2"><a href="#"><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a><small>{{object.likes}}</small></div>
-  <div class="col s2"><a href="/tube/video/unlike/{{object.id}}/"><i class="material-icons red-text center">thumb_down</i></a><small>{{object.dislikes}}</small></div>
+  <div class="col s2"><a class="waves-effect waves-light" onclick="return likeVid()" btn-small><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a><div id="likes" style="font-size:12px;">{{object.likes}}</div></div>
+  <div class="col s2"><a class="waves-effect waves-light" onclick="return unlikeVid()"><i class="material-icons red-text center">thumb_down</i></a><div id="unlikes" style="font-size:12px;">{{object.dislikes}}</div></div>
   <div class="col s2"><i class="material-icons blue-text center">notifications</i><small>Subscribe</small></div>
 </div>
+<script>
+
+    function login() {
+        // Form fields, see IDs above
+        const params = {
+            title: document.querySelector('#id_title').value,
+            intro_text: document.querySelector('#id_intro_text').value
+        }
+        var csrftoken = readCookie('csrftoken');
+        var url = "http://famehub.pythonanywhere.com/tube/video/api_like/{{object.id}}/"
+
+        const http = new XMLHttpRequest()
+        http.open('POST', 'http://localhost:8000/api/v1/courses/all/python_lessons/')
+        http.setRequestHeader('Content-type', 'application/json')
+        http.setRequestHeader('X-CSRFToken',csrftoken)
+        http.send(JSON.stringify(params)) // Make sure to stringify
+        http.onprogress = function () {
+          showdiv();
+          setTimeout (function(){
+            hidediv();
+            showToast2('Lesson submitted', 3000)
+            //alert("Done!")
+          }, 2000)
+          }
+        //alert('LOADING', http.readyState);}
+        http.onload = function() {
+            // Do whatever with response
+            //hidediv();
+            console.log(http.responseText)
+        }
+    }
+
+function likeVid() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //document.getElementById("demo").innerHTML =
+      var resp = this.responseText
+      var message = JSON.parse(resp)['message'];
+      var success = JSON.parse(resp)['success'];
+      var likes = JSON.parse(resp)['likes'];
+      var unlikes = JSON.parse(resp)['unlikes'];
+      if (success){
+      showSuccess(message, 3000);}
+      else{
+        showError(message, 3000);
+      }
+      document.getElementById("likes").innerHTML = likes;
+      document.getElementById("unlikes").innerHTML = unlikes;
+      console.log(resp);
+    }
+  };
+  xhttp.open("GET", "http://famehub.pythonanywhere.com/tube/video/api_like/{{object.id}}/", true);
+  xhttp.send();
+}
+
+function unlikeVid() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //document.getElementById("demo").innerHTML =
+      var resp = this.responseText
+      var message = JSON.parse(resp)['message'];
+      var success = JSON.parse(resp)['success'];
+      var likes = JSON.parse(resp)['likes'];
+      var unlikes = JSON.parse(resp)['unlikes'];
+      if (success){
+      showSuccess(message, 3000);}
+      else{
+        showError(message, 3000);
+      }
+      document.getElementById("unlikes").innerHTML = unlikes;
+      document.getElementById("likes").innerHTML = likes;
+      console.log(resp);
+    }
+  };
+  xhttp.open("GET", "http://famehub.pythonanywhere.com/tube/video/api_unlike/{{object.id}}/", true);
+  xhttp.send();
+}
+
+ function showSuccess(message, duration) {
+            Materialize.toast(message, duration, 'rounded green');
+         }
+function showError(message, duration) {
+            Materialize.toast(message, duration, 'rounded white red-text');
+         }
+
+</script>
+
+
+
 <div class="divider"></div>
 
 <div class="container">
