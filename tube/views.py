@@ -267,15 +267,16 @@ def api_likes(request,video_id):
         messages.error(request,"You already liked this video")
         return redirect('/tube/video/{}/'.format(video_id))
 
-from rest_framework.decorators import api_view
-from rest_framework.decorators import parser_classes
-from rest_framework.parsers import JSONParser
+#from rest_framework.decorators import api_view
+#from rest_framework.decorators import parser_classes
+#from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 
 # @api_view(['GET'])
 # @parser_classes((JSONParser,))
 def api_like(request,video_id, format=None):
     """A view that can accept GET"""
+    """Getting user, video object, videos liked by user and videos unliked by user"""
     user = CustomUser.objects.get(id=request.user.id)
     video = Video.objects.get(id=video_id)
     videos_liked = list(user.videos_liked.all())
@@ -288,7 +289,7 @@ def api_like(request,video_id, format=None):
         #messages.error(request,"You liked this video")
         responseData = {
         'id': video_id,
-        'message': 'You like this video',
+        'message': "<i class='material-icons green-text center'>thumb_up</i>+1",
         'likes':video.likes,
         'unlikes':video.dislikes,
         'success':True}
@@ -304,23 +305,28 @@ def api_like(request,video_id, format=None):
         user.videos_unliked.remove(video)
         user.save()
         #messages.error(request,"You now liked this video")
+        #user.videos_liked.remove(video)
         responseData = {
         'id': video_id,
         'likes':video.likes,
         'unlikes':video.dislikes,
-        'message': 'You now like this video',
+        'message': "<i class='material-icons green-text center'>thumb_up</i>+1",
         'success':True}
         #'roles' : ['Admin','User']}
         return JsonResponse(responseData)
         #return redirect('/tube/video/{}/'.format(video_id))
 
     else:
+        video.likes -=1
+        video.save()
+        user.videos_liked.remove(video)
+        user.save()
         #messages.error(request,"You already liked this video")
         responseData = {
         'id': video_id,
         'likes':video.likes,
         'unlikes':video.dislikes,
-        'message': 'You already liked this video',
+        'message': "<i class='material-icons red-text center'>thumb_up</i>-1",
         'success':False}
         #'roles' : ['Admin','User']}
         return JsonResponse(responseData)
@@ -343,8 +349,8 @@ def api_unlike(request,video_id):
         'id': video_id,
         'likes':video.likes,
         'unlikes':video.dislikes,
-        'message': 'You unlike this video',
-        'success':True}
+        'message': "<i class='material-icons red-text center'>thumb_down</i>+1",
+        'success':False}
         #'roles' : ['Admin','User']}
         return JsonResponse(responseData)
         #return redirect('/tube/video/{}/'.format(video_id))
@@ -361,19 +367,23 @@ def api_unlike(request,video_id):
         'id': video_id,
         'likes':video.likes,
         'unlikes':video.dislikes,
-        'message': 'You unlike this video',
-        'success':True}
+        'message': "<i class='material-icons red-text center'>thumb_down</i>+1",
+        'success':False}
         #'roles' : ['Admin','User']}
         return JsonResponse(responseData)
         #return redirect('/tube/video/{}/'.format(video_id))
     else:
         #messages.error(request,"You already unliked this video")
+        video.dislikes -= 1
+        video.save()
+        user.videos_unliked.remove(video)
+        user.save()
         responseData = {
         'id': video_id,
         'likes':video.likes,
         'unlikes':video.dislikes,
-        'message': 'You already unliked this video',
-        'success':False}
+        'message': "<i class='material-icons green-text center'>thumb_down</i>-1",
+        'success':True}
         #'roles' : ['Admin','User']}
         return JsonResponse(responseData)
         #return redirect('/tube/video/{}/'.format(video_id))

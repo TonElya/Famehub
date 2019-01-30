@@ -207,8 +207,13 @@ h5{color:steelblue;font-family: 'Playfair Display SC', serif;}
   <div class="col s1 red lighten-1">5</div>
   <div class="col s1 red lighten-1">6</div>
   -->
-  <div class="col s2"><a class="waves-effect waves-light" onclick="return likeVid()" btn-small><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a><div id="likes" style="font-size:12px;">{{object.likes}}</div></div>
-  <div class="col s2"><a class="waves-effect waves-light" onclick="return unlikeVid()"><i class="material-icons red-text center">thumb_down</i></a><div id="unlikes" style="font-size:12px;">{{object.dislikes}}</div></div>
+  <div class="col s2">
+      <a href="#/" class="waves-effect waves-light" onclick="return likeVid()" btn-small><i class="material-icons green-text center" id="like-button-submit">thumb_up</i></a>
+  <div id="likes" style="font-size:12px;">{{object.likes}}</div></div>
+  <div class="col s2">
+      <a href="#/" class="waves-effect waves-light" onclick="return unlikeVid()"><i class="material-icons red-text center">thumb_down</i></a>
+      <div id="unlikes" style="font-size:12px;">{{object.dislikes}}</div>
+      </div>
   <div class="col s2"><i class="material-icons blue-text center">notifications</i><small>Subscribe</small></div>
 </div>
 <script>
