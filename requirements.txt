@@ -154,7 +154,7 @@ Keras-Applications==1.0.4
 Keras-Preprocessing==1.0.2
 kiwisolver==1.0.1
 Logbook==1.4.0
-lxml==4.2.3
+lxml==4.6.3
 Mako==1.0.7
 marisa-trie==0.7.5
 Markdown==2.6.11
