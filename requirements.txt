@@ -225,7 +225,7 @@ psutil==5.4.6
 psycopg2-binary==2.7.5
 ptyprocess==0.6.0
 pudb==2018.1
-py==1.5.4
+py==1.10.0
 py-bcrypt==0.4
 py2neo==4.0.0
 pyasn1==0.4.3
