@@ -347,7 +347,7 @@ uncertainties==3.0.2
 Unidecode==1.0.22
 update-checker==0.16
 uritemplate==3.0.0
-urllib3==1.23
+urllib3==1.26.5
 urwid==2.0.1
 venusian==1.1.0
 virtualenv==16.0.0
