@@ -61,7 +61,7 @@ dataset==1.1.0
 decorator==4.3.0
 dectate==0.13
 defusedxml==0.5.0
-Django==2.1
+Django==2.2.24
 django-blog-zinnia==0.20
 django-bootstrap-form==3.4
 django-classy-tags==0.8.0
