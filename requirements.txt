@@ -4,7 +4,7 @@ alabaster==0.7.11
 alembic==1.0.0
 aniso8601==3.0.2
 appdirs==1.4.3
-arrow==0.12.1
+arrow==0.15.1
 asn1crypto==0.24.0
 astor==0.7.1
 astropy==3.0.3
