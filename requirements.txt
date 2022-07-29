@@ -163,7 +163,7 @@ martian==1.2
 matplotlib==2.2.2
 mechanize==0.2.5
 mimerender==0.6.0
-mistune==0.8.3
+mistune==2.0.3
 mlpy==3.5.0
 mock==2.0.0
 more-itertools==4.3.0
